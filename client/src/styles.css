@@ -1,0 +1,326 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * GUARDIAN design system — cinematic comic-book control room.
+ * Deep black / charcoal / bone white with a powerful red accent and gold trim.
+ */
+
+@theme inline {
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-online: var(--online);
+  --color-panel: var(--panel);
+  --font-display: "Anton", "Arial Black", sans-serif;
+  --font-sans: "Archivo", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --background: oklch(0.14 0.005 260);
+  --foreground: oklch(0.96 0.005 90);
+  --panel: oklch(0.19 0.006 260);
+  --card: oklch(0.18 0.006 260);
+  --card-foreground: oklch(0.96 0.005 90);
+  --popover: oklch(0.18 0.006 260);
+  --popover-foreground: oklch(0.96 0.005 90);
+  --primary: oklch(0.56 0.23 27);
+  --primary-foreground: oklch(0.98 0.005 90);
+  --secondary: oklch(0.24 0.008 260);
+  --secondary-foreground: oklch(0.96 0.005 90);
+  --muted: oklch(0.24 0.008 260);
+  --muted-foreground: oklch(0.68 0.01 260);
+  --accent: oklch(0.56 0.23 27);
+  --accent-foreground: oklch(0.98 0.005 90);
+  --destructive: oklch(0.56 0.23 27);
+  --destructive-foreground: oklch(0.98 0.005 90);
+  --border: oklch(0.3 0.008 260);
+  --input: oklch(0.3 0.008 260);
+  --ring: oklch(0.56 0.23 27);
+  --gold: oklch(0.83 0.16 88);
+  --online: oklch(0.78 0.19 150);
+  --radius: 0px;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+}
+
+/* ------------------------------ backgrounds ------------------------------ */
+
+@utility halftone {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--foreground) 12%, transparent) 1px,
+    transparent 1.4px
+  );
+  background-size: 7px 7px;
+}
+
+@utility grid-floor {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--foreground) 6%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 54px 54px;
+}
+
+@utility rays {
+  background: repeating-conic-gradient(
+    from 0deg,
+    color-mix(in oklab, var(--primary) 26%, transparent) 0deg 5deg,
+    transparent 5deg 16deg
+  );
+  animation: guardian-spin 60s linear infinite;
+}
+
+@utility speedlines {
+  background: repeating-linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--foreground) 16%, transparent) 0 1px,
+    transparent 1px 9px
+  );
+}
+
+/* -------------------------------- panels --------------------------------- */
+
+@utility panel {
+  background-color: var(--panel);
+  border: 2px solid var(--foreground);
+  box-shadow: 8px 8px 0 0 color-mix(in oklab, var(--primary) 85%, transparent);
+}
+
+@utility panel-soft {
+  background-color: var(--panel);
+  border: 1px solid var(--border);
+}
+
+@utility panel-hot {
+  background-color: color-mix(in oklab, var(--primary) 14%, var(--panel));
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 40px -8px color-mix(in oklab, var(--primary) 70%, transparent);
+}
+
+@utility label-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid currentColor;
+}
+
+@utility warn-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--gold) 0 12px,
+    oklch(0.14 0.005 260) 12px 24px
+  );
+}
+
+@utility btn-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.95rem 1.7rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: 2px solid var(--primary);
+  box-shadow: 6px 6px 0 0 var(--foreground);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+
+  &:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0 0 var(--foreground);
+  }
+}
+
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.95rem 1.7rem;
+  background: transparent;
+  color: var(--foreground);
+  border: 2px solid var(--foreground);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    background: var(--foreground);
+    color: var(--background);
+  }
+}
+
+@utility glitch-text {
+  position: relative;
+  text-shadow:
+    2px 0 color-mix(in oklab, var(--primary) 90%, transparent),
+    -2px 0 color-mix(in oklab, var(--gold) 55%, transparent);
+  animation: guardian-glitch 6s steps(1) infinite;
+}
+
+/* ------------------------------- animation ------------------------------- */
+
+@keyframes guardian-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes guardian-spin-rev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes guardian-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.88);
+  }
+}
+
+@keyframes guardian-glitch {
+  0%,
+  92%,
+  100% {
+    transform: translate(0, 0);
+  }
+  93% {
+    transform: translate(-3px, 1px);
+  }
+  95% {
+    transform: translate(3px, -1px);
+  }
+  97% {
+    transform: translate(-1px, 0);
+  }
+}
+
+@keyframes guardian-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+
+@keyframes guardian-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes guardian-flash {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: color-mix(in oklab, var(--primary) 30%, transparent);
+  }
+}
+
+@utility spin-slow {
+  animation: guardian-spin 18s linear infinite;
+}
+
+@utility spin-rev {
+  animation: guardian-spin-rev 26s linear infinite;
+}
+
+@utility pulse-dot {
+  animation: guardian-pulse 1.6s ease-in-out infinite;
+}
+
+@utility float-slow {
+  animation: guardian-float 9s ease-in-out infinite;
+}
+
+@utility rise-in {
+  animation: guardian-rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@utility flash-alert {
+  animation: guardian-flash 0.55s ease-in-out 3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
